@@ -1,0 +1,7 @@
+.trainer_kit_clickable_element {
+    cursor: pointer;
+}
+
+.svg_toggle_switch_notch {
+    transition: all .25s ease-in-out;
+}
