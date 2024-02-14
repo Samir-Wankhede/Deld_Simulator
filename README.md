@@ -1,0 +1,1 @@
+An interactive online digital trainer kit created and designed to help students perform their experiments where using SVG attributes enable students to connect elements like ICs, Clock, IP/OP by drawing wires between pins which emulate the functioning of a real digital trainer kit
