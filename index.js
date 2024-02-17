@@ -195,18 +195,19 @@ function onpinhover(){
 function drawpath(event){ 
     if ((activepin.parentElement.parentElement.parentElement.y.baseVal.value == 592)){
         startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value + (activepin.parentElement.parentElement.parentElement.width.baseVal.value/2));
-        startY = (activepin.parentElement.parentElement.parentElement.y.baseVal.value + (activepin.parentElement.height.baseVal.value))
+        startY = (activepin.parentElement.parentElement.parentElement.y.baseVal.value + (activepin.parentElement.height.baseVal.value/2))
+
     }
     else if ((activepin.parentElement.parentElement.parentElement.y.baseVal.value == 32)){
         startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value + (activepin.parentElement.parentElement.parentElement.width.baseVal.value/2));
-        startY = (activepin.parentElement.parentElement.parentElement.y.baseVal.value)+ (activepin.parentElement.y.baseVal.value);
+        startY = (activepin.parentElement.parentElement.parentElement.y.baseVal.value)+ (activepin.parentElement.y.baseVal.value)+(activepin.parentElement.height.baseVal.value/2);
     }
     else if(activepin.parentElement.x.baseVal.value == 16){
-        startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value)+(activepin.parentElement.x.baseVal.value)+ (activepin.parentElement.width.baseVal.value);
+        startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value)+(activepin.parentElement.x.baseVal.value)+ (activepin.parentElement.width.baseVal.value/2);
         startY = ((activepin.parentElement.parentElement.parentElement.y.baseVal.value)+(activepin.parentElement.y.baseVal.value )) + (activepin.parentElement.height.baseVal.value)/2;///container.currheight)*container.height;
     }
     else if (activepin.parentElement.x.baseVal.value == 120){
-        startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value)+(activepin.parentElement.x.baseVal.value);// - (activepin.parentElement.width.baseVal.value);
+        startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value)+(activepin.parentElement.x.baseVal.value)+ (activepin.parentElement.width.baseVal.value/2);// - (activepin.parentElement.width.baseVal.value);
         startY = ((activepin.parentElement.parentElement.parentElement.y.baseVal.value)+(activepin.parentElement.y.baseVal.value )) + (activepin.parentElement.height.baseVal.value)/2;///container.currheight)*container.height;
     }
     mouseX = (event.clientX/container.currwidth)*container.width;
