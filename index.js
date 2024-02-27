@@ -42,6 +42,33 @@ inputtoggles.forEach(element => {
     }
   });
 });
+////////
+function ICclick(){
+    //console.log(box);
+    if (pinbox !== this){
+    const pathe = document.createElementNS('http://www.w3.org/2000/svg',"path");
+    pathcollection.appendChild(pathe);
+    pathe.setAttribute('d',pathData);
+    pathe.setAttribute('stroke',pathElement.style.stroke) ;
+    pathe.setAttribute('stroke-width',2);
+    pathe.setAttribute('stroke-linejoin','round');
+    pathe.classList.add('trainer_kit_clickable_element');
+    pathe.addEventListener('mouseover', wireover);
+    pathe.addEventListener('mouseout', wireout);
+    pathData = '';
+    pathElement.setAttribute('d', pathData);
+    activepin.style.fill = "#6c757d";
+    boxhover_active = false;
+    path_is_being_drawn = true;
+    }else{
+        pathData = '';
+    pathElement.setAttribute('d', pathData);
+    activepin.style.fill = "#6c757d";
+    boxhover_active = false;
+    path_is_being_drawn = true;
+    }
+    this.removeEventListener('click',ICclick);
+}
 
 /////////
 function wireover(event){
@@ -85,33 +112,7 @@ function onpinhover(){
                     pathElement.setAttribute('d', pathData);
                     svgContainer.removeEventListener('mousemove', drawpath);
                     svgContainer.removeEventListener('click', containerclick);
-                    box.addEventListener('click',function ICclick(){
-                        if (pinbox !== box){
-                        //console.log(box);
-                        const pathe = document.createElementNS('http://www.w3.org/2000/svg',"path");  
-                        pathcollection.appendChild(pathe);
-                        pathe.setAttribute('d',pathData);
-                        pathe.setAttribute('stroke',pathElement.style.stroke) ;
-                        pathe.setAttribute('stroke-width',2);
-                        pathe.setAttribute('stroke-linejoin','round');
-                        pathe.classList.add('trainer_kit_clickable_element');
-                        pathe.addEventListener('mouseover', wireover);
-                        pathe.addEventListener('mouseout', wireout);
-                        pathData = '';
-                        pathElement.setAttribute('d', pathData);
-                        activepin.style.fill = "#6c757d";
-                        boxhover_active = false;
-                        path_is_being_drawn = true;
-                        }else{
-                            pathData = '';
-                            pathElement.setAttribute('d', pathData);
-                            activepin.style.fill = "#6c757d";
-                            boxhover_active = false;
-                            path_is_being_drawn = true; 
-                        }
-                        
-                        box.removeEventListener('click',ICclick);
-                    });
+                    box.addEventListener('click',ICclick);
             }
             else{
                 box.removeEventListener('mouseover',ICboxhover);
@@ -121,6 +122,7 @@ function onpinhover(){
         box.addEventListener('mouseout', function ICboxout(){
             if (boxhover_active){
                 svgContainer.addEventListener('mousemove', drawpath);
+                box.removeEventListener('click',ICclick);
             }
             else{
                 box.removeEventListener('mouseout',ICboxout);
@@ -147,32 +149,7 @@ function onpinhover(){
                     pathElement.setAttribute('d', pathData);
                     svgContainer.removeEventListener('mousemove', drawpath);
                     svgContainer.removeEventListener('click', containerclick);
-                    box.addEventListener('click',function ICclick(){
-                        //console.log(box);
-                        if (pinbox !== box){
-                        const pathe = document.createElementNS('http://www.w3.org/2000/svg',"path");
-                        pathcollection.appendChild(pathe);
-                        pathe.setAttribute('d',pathData);
-                        pathe.setAttribute('stroke',pathElement.style.stroke) ;
-                        pathe.setAttribute('stroke-width',2);
-                        pathe.setAttribute('stroke-linejoin','round');
-                        pathe.classList.add('trainer_kit_clickable_element');
-                        pathe.addEventListener('mouseover', wireover);
-                        pathe.addEventListener('mouseout', wireout);
-                        pathData = '';
-                        pathElement.setAttribute('d', pathData);
-                        activepin.style.fill = "#6c757d";
-                        boxhover_active = false;
-                        path_is_being_drawn = true;
-                        }else{
-                            pathData = '';
-                        pathElement.setAttribute('d', pathData);
-                        activepin.style.fill = "#6c757d";
-                        boxhover_active = false;
-                        path_is_being_drawn = true;
-                        }
-                        box.removeEventListener('click',ICclick);
-                    });
+                    box.addEventListener('click',ICclick);
                 }
                 else{
                     box.removeEventListener('mouseover', ipopboxhover);
@@ -183,6 +160,7 @@ function onpinhover(){
             box.addEventListener('mouseout', function ipopboxout(){
                 if (boxhover_active){
                     svgContainer.addEventListener('mousemove', drawpath);
+                    box.removeEventListener('click',ICclick);
                 }else{
                     box.removeEventListener('mouseout',ipopboxout);
                 }
@@ -195,19 +173,19 @@ function onpinhover(){
 function drawpath(event){ 
     if ((activepin.parentElement.parentElement.parentElement.y.baseVal.value == 592)){
         startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value + (activepin.parentElement.parentElement.parentElement.width.baseVal.value/2));
-        startY = (activepin.parentElement.parentElement.parentElement.y.baseVal.value + (activepin.parentElement.height.baseVal.value/2))
+        startY = (activepin.parentElement.parentElement.parentElement.y.baseVal.value + (activepin.parentElement.height.baseVal.value));
 
     }
     else if ((activepin.parentElement.parentElement.parentElement.y.baseVal.value == 32)){
         startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value + (activepin.parentElement.parentElement.parentElement.width.baseVal.value/2));
-        startY = (activepin.parentElement.parentElement.parentElement.y.baseVal.value)+ (activepin.parentElement.y.baseVal.value)+(activepin.parentElement.height.baseVal.value/2);
+        startY = (activepin.parentElement.parentElement.parentElement.y.baseVal.value)+ (activepin.parentElement.y.baseVal.value);//+(activepin.parentElement.height.baseVal.value);
     }
     else if(activepin.parentElement.x.baseVal.value == 16){
-        startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value)+(activepin.parentElement.x.baseVal.value)+ (activepin.parentElement.width.baseVal.value/2);
+        startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value)+(activepin.parentElement.x.baseVal.value)+ (activepin.parentElement.width.baseVal.value);
         startY = ((activepin.parentElement.parentElement.parentElement.y.baseVal.value)+(activepin.parentElement.y.baseVal.value )) + (activepin.parentElement.height.baseVal.value)/2;///container.currheight)*container.height;
     }
     else if (activepin.parentElement.x.baseVal.value == 120){
-        startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value)+(activepin.parentElement.x.baseVal.value)+ (activepin.parentElement.width.baseVal.value/2);// - (activepin.parentElement.width.baseVal.value);
+        startX = (activepin.parentElement.parentElement.parentElement.x.baseVal.value)+(activepin.parentElement.x.baseVal.value);//+ (activepin.parentElement.width.baseVal.value);// - (activepin.parentElement.width.baseVal.value);
         startY = ((activepin.parentElement.parentElement.parentElement.y.baseVal.value)+(activepin.parentElement.y.baseVal.value )) + (activepin.parentElement.height.baseVal.value)/2;///container.currheight)*container.height;
     }
     mouseX = (event.clientX/container.currwidth)*container.width;
