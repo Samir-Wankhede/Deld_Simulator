@@ -5,6 +5,13 @@ const pinpathboxIC = document.querySelectorAll("g.pinsIC > svg > rect");
 const pinpathbox = document.querySelectorAll("g.set > svg > path + rect");
 const svgContainer = document.getElementById('svgContainer');
 const pathElement = document.getElementById('pathElement');
+const inputpins = document.querySelectorAll("g.inputpins > svg > g.set > svg > path");
+const outputpins = document.querySelectorAll("g.outputpins > svg > g.set > svg > path");
+const ic1 = document.querySelectorAll("g.ic1 > svg > path")
+console.log(pathvariableicpins);
+console.log(inputpins);
+console.log(outputpins);
+console.log(ic1);
 let pathData = '';  
 let pinbox;
 let activepin;
@@ -13,7 +20,16 @@ let startY = 0;
 let mouseX = 0;
 let mouseY = 0;
 const wirecolors = ["#1a2b38","#70d6ff","#ff70a6","#ff9770","#ffd670","#e9ff70"];
+var component = new Map();
+let newcomp;
 
+inputpins.forEach(pin => {
+    pin.status="0";
+})
+
+ic1.forEach(pin => {
+    pin.flag="0";
+})
 const container = {
     height: (svgContainer.viewBox.baseVal.height),
     width: (svgContainer.viewBox.baseVal.width),
@@ -29,13 +45,16 @@ inputtoggles.forEach(element => {
         childs[2].style.fill="#343a40";
         childs[3].style.cy=24;
         childs[1].style.fill="#343a40";
+        element.parentElement.children[2].children[1].children[0].status="0";
     }
     else{
         childs[2].style.cy=8;
         childs[2].style.fill="#ff0000";
         childs[3].style.cy=8;
         childs[1].style.fill="#ff0000";
+        element.parentElement.children[2].children[1].children[0].status="1";
     }
+    ic7404();
   });
 });
 ////////function 
@@ -141,10 +160,12 @@ function drawpath(event){
 
 pathvariableipop.forEach(ipoppins => {
     ipoppins.addEventListener('click', function ipopclick(){
+    newcomp={};
     var svgchild = ipoppins.children;
     var getpinelement = svgchild[1].children;
     activepin = getpinelement[0];
     pinbox = getpinelement[1];
+    newcomp = activepin;
     activepin.style.fill = "#1a2b38";
     pathElement.style.stroke = wirecolors[Math.floor((Math.random())*6)];
     svgContainer.addEventListener('mousemove', drawpath);
@@ -156,9 +177,74 @@ pathvariableicpins.forEach(ipoppins => {
     var svgchild = ipoppins.children;
     activepin = svgchild[0];
     pinbox = svgchild[1];
+    component.set(activepin,newcomp);
+    activepin.flag="1";
+    console.log(component);
     activepin.style.fill = "#1a2b38";
     pathElement.style.stroke = wirecolors[Math.floor((Math.random())*6)];
     svgContainer.addEventListener('mousemove', drawpath);
     });
 });
 
+function opc(ip,op){
+    
+    if(ip.status==="0"){
+        op.parentElement.parentElement.children[0].children[1].style.fill="#343a40";
+    }else{
+        op.parentElement.parentElement.children[0].children[1].style.fill="#ff0000";
+    }
+}
+
+function not(ip,op){    
+    if(ip.status==="1"){
+        op.status="0";
+    }else{
+        op.status="1";
+    }
+    
+    
+}
+function ic7404(){
+    /*const mapIterator = component.values();
+    let m=0;
+    while(m<component.size){
+        let c=0;
+        for(var i=0;i<15;i++){
+            if(mapIterator.next().value===inputpins[i]){
+                c=1;
+            }
+        }
+        if(c===1){
+            incomp["icpin"].setAttribute("data-status",`${incomp["ipop"].getAttribute("data-status")}`)
+        }
+    }*/
+    if(ic1[0].flag==="1"){
+        not(component.get(ic1[0]),ic1[2]);
+        opc(ic1[2],component.get(ic1[2]));
+    }
+    if(ic1[4].flag==="1"){
+        not(component.get(ic1[4]),ic1[6]);
+        opc(ic1[6],component.get(ic1[6]));
+    }
+    
+    if(ic1[8].flag==="1"){
+        not(component.get(ic1[8]),ic1[10]);
+        opc(ic1[10],component.get(ic1[10]));
+    }
+    
+    if(ic1[3].flag==="1"){
+        not(component.get(ic1[3]),ic1[5]);
+        opc(ic1[5],component.get(ic1[5]));
+    }
+    
+    if(ic1[7].flag==="1"){
+        not(component.get(ic1[7]),ic1[9]);
+        opc(ic1[9],component.get(ic1[9]));
+    }
+    
+    if(ic1[11].flag==="1"){
+        not(component.get(ic1[11]),ic1[13]);
+        opc(ic1[13],component.get(ic1[13]));
+    }
+    
+}
