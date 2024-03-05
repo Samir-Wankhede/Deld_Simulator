@@ -6,6 +6,9 @@ const pinpathbox = document.querySelectorAll("g.set > svg > path + rect");
 const svgContainer = document.getElementById('svgContainer');
 const pathElement = document.getElementById('pathElement');
 const pathcollection = document.getElementById('pathcollection');
+const powerButton = document.querySelector("g.IC+svg");
+console.log(powerButton)
+//console.log(inputtoggles)
 //const wire = document.querySelectorAll('path.trainer_kit_clickable_element');
 let pathData = '';  
 let pinbox;
